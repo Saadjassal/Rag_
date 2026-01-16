@@ -4,10 +4,8 @@ from langchain_text_splitters import CharacterTextSplitter
 #from langchain_openai import OpenAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-from dotenv import load_dotenv
-print("OPENAI_API_KEY exists:", bool(os.getenv("OPENAI_API_KEY")))
-
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 def load_documents(docs_path = "docs"):
     '''load all files from the docs'''
@@ -95,7 +93,7 @@ def main():
             embedding_function= embedding_model,
             collection_metadata={"hnsw:space": "cosine"}
         )
-        print(f"Load existing vector store with {vectorstore._collecton.count()} documents")
+        print(f"Load existing vector store with {vectorstore._collection.count()} documents")
         return vectorstore
     
     print("persistent directory does not exist. Initializing vector store...\n")
