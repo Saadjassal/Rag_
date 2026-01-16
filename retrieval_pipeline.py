@@ -1,8 +1,11 @@
+import os
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-# import os
-# os.environ["TRANSFORMERS_OFFLINE"] = "1"
-# os.environ["HF_HUB_OFFLINE"] = "1"
+from langchain_groq import ChatGroq
+from dotenv import load_dotenv
+from langchain_core.messages import HumanMessage, SystemMessage
+
+load_dotenv()
 
 persistent_directory = "db/chorma_db"
 
@@ -17,7 +20,7 @@ db = Chroma(
 )
 
 #search for relevant documents
-query = "What was Microsoft's first hardware product release?"
+query = "What was NVIDIA's first graphics accelerator called?"
 
 retriever = db.as_retriever(search_kwargs= {"k":5})
 
@@ -36,7 +39,28 @@ print("---Context---")
 for i, doc in enumerate(relevant_docs,1):
     print(f"Document {i}:\n{doc.page_content}\n")
     
-    
+#Combining the query with relevant doc content
+combined_input =f'''Based on the following documents, please answer this question: {query}
+
+Documents:
+{chr(10).join([f"-{doc.page_content}" for doc in relevant_docs])}
+
+Please provide a clear, helpful answer using only the information from these documents. If you can't find the answer
+in the documents, say "I don't have enogh information to answer that question based on the provided documents."
+'''
+
+model = ChatGroq(model="llama-3.1-8b-instant")
+
+messages = [SystemMessage(content="You are a helpful assistant."),
+            HumanMessage(content=combined_input),]
+
+result = model.invoke(messages)
+
+print("\n----Generated Response----")
+print("Content:")
+print(result.content)
+
+
     # Synthetic Questions: 
 
 # 1. "What was NVIDIA's first graphics accelerator called?"
