@@ -1,0 +1,10 @@
+# Environment variables
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Chroma DB (optional if large)
+db/
