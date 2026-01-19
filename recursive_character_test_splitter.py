@@ -63,3 +63,31 @@ for i, chunk in enumerate(chunks1, 1):
     print(f"Chunk {i}: ({len(chunk)} chars)")
     print(f'"{chunk}"')
     print()
+    
+    
+# Chunk 1: (97 chars)
+# "Tesla's Q3 Results
+
+# Tesla reported record revenue of $25.2B in Q3 2024.
+
+# Model Y Performance
+
+# The"
+
+# Chunk 2: (86 chars)
+# "Model Y became the best-selling vehicle globally, with 350,000 units sold.
+
+# Production"
+
+# Chunk 3: (97 chars)
+# "Challenges
+
+# Supply chain issues caused a 12% increase in production costs.
+
+# This is one very long"
+
+# Chunk 4: (94 chars)
+# "paragraph that definitely exceeds our 100 character limit and has no double newlines inside it"
+
+# Chunk 5: (50 chars)
+# "whatsoever making it impossible to split properly."
